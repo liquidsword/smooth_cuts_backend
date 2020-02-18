@@ -52,5 +52,3 @@ class Api::V1::UsersController < ApplicationController
       params.require(:user).permit(:name, :username, :password_digest)
     end
 end
-
-end
