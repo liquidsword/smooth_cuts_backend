@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+auden = User.create(name: "Auden", username: "Liquidsword", password: "torch")
+auden = User.first
+
+clippers = Post.create(title: "Best Clippers", content: "These are the best barber clippers ever!!!")
