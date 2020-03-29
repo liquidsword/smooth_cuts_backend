@@ -3,4 +3,6 @@ class User < ApplicationRecord
   has_many :comments
   has_many :pics, through: :posts
   has_many :posts
+
+  validates :name, :username, presence: true
 end

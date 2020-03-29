@@ -18,9 +18,9 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
       if @post.save
-        render json: @post, status: :created
+        render json: PostSerializer.new(@post), status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
       end
@@ -28,7 +28,7 @@ class Api::V1::PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      render json: @post
+      render json: PostSerializer.new(@post), status: :ok
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :user_id)
+    params.require(:post).permit(:title, :content)
   end
 
 end
