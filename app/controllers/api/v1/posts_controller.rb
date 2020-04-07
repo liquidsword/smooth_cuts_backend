@@ -22,7 +22,10 @@ class Api::V1::PostsController < ApplicationController
       if @post.save
         render json: PostSerializer.new(@post), status: :created
       else
-        render json: @post.errors, status: :unprocessable_entity
+        error_resp = {
+          error: @post.errors.full_messages.to_sentence
+        }
+        render json: error_resp, status: :unprocessable_entity
       end
   end
 
@@ -30,7 +33,10 @@ class Api::V1::PostsController < ApplicationController
     if @post.update(post_params)
       render json: PostSerializer.new(@post), status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      error_resp = {
+        error: @post.errors.full_messages.to_sentence
+      }
+      render json: error_resp, status: :unprocessable_entity
     end
   end
 
@@ -47,5 +53,4 @@ class Api::V1::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content)
   end
-
 end
