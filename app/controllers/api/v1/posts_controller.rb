@@ -41,7 +41,14 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
+    if @post.destroy
+      render json: { data: "Post has been destroyed!!!" }, status: :ok
+    else
+      error_resp = {
+        error: "Post NOT found!!!"
+      }
+      render json: error_resp, status: :unprocessable_entity
+    end
   end
 
   private
